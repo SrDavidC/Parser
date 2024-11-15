@@ -35,11 +35,11 @@ public class SemanticAnalyzer {
     }
 
     public void checkConstantFolding(Expression expr, int line) {
-        // Implementa optimización de operaciones constantes (si es aritmética de constantes, simplifica aquí)
+        // TODO(david)
     }
 
     public void checkConstantPropagation() {
-        // Implementa propagación de constantes en esta etapa
+        // TODO(david)
     }
 
     public void checkBreakContinueInLoop(boolean inLoop, int line) {
