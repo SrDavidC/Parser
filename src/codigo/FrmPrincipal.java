@@ -86,6 +86,8 @@ private void analizarLexico() throws IOException {
         txtAnalizarSem = new javax.swing.JTextArea();
         btnAnalizarSemantico = new javax.swing.JButton();
         btnLimpiarSemantico = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        btnGenerarCodEnsamblador = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -131,7 +133,7 @@ private void analizarLexico() throws IOException {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 239, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 240, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnAnalizarLex)
@@ -230,6 +232,33 @@ private void analizarLexico() throws IOException {
             }
         });
 
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Generador de código ensamblador", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
+
+        btnGenerarCodEnsamblador.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnGenerarCodEnsamblador.setText("Generar código ensamblador");
+        btnGenerarCodEnsamblador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarCodEnsambladorActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(210, 210, 210)
+                .addComponent(btnGenerarCodEnsamblador)
+                .addContainerGap(220, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(btnGenerarCodEnsamblador)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -237,11 +266,14 @@ private void analizarLexico() throws IOException {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(btnAnalizarSemantico)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnLimpiarSemantico))))
+                        .addComponent(btnLimpiarSemantico))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,6 +284,8 @@ private void analizarLexico() throws IOException {
                     .addComponent(btnLimpiarSemantico))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -273,7 +307,6 @@ private void analizarLexico() throws IOException {
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.getAccessibleContext().setAccessibleName("Analizador Semantico");
         jPanel3.getAccessibleContext().setAccessibleDescription("");
 
         pack();
@@ -452,6 +485,10 @@ private void analizarLexico() throws IOException {
     private void btnLimpiarSemanticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarSemanticoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLimpiarSemanticoActionPerformed
+
+    private void btnGenerarCodEnsambladorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarCodEnsambladorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGenerarCodEnsambladorActionPerformed
     
     /**
      * @param args the command line arguments
@@ -492,25 +529,22 @@ private void analizarLexico() throws IOException {
     private javax.swing.JButton btnAnalizarLex;
     private javax.swing.JButton btnAnalizarSemantico;
     private javax.swing.JButton btnAnalizarSin;
-    private javax.swing.JButton btnAnalizarSin2;
     private javax.swing.JButton btnArchivo;
+    private javax.swing.JButton btnGenerarCodEnsamblador;
     private javax.swing.JButton btnLimpiarLex;
     private javax.swing.JButton btnLimpiarSemantico;
     private javax.swing.JButton btnLimpiarSin;
-    private javax.swing.JButton btnLimpiarSin1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextArea txtAnalizarLex;
     private javax.swing.JTextArea txtAnalizarSem;
     private javax.swing.JTextArea txtAnalizarSin;
-    private javax.swing.JTextArea txtAnalizarSin1;
     private javax.swing.JTextArea txtResultado;
     // End of variables declaration//GEN-END:variables
 }

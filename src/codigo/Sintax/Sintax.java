@@ -302,8 +302,10 @@ public class Sintax extends java_cup.runtime.lr_parser {
     private Symbol s;
     
     public void syntax_error(Symbol s){
-        this.s = s;
-    }
+    this.s = s;
+    System.err.println("Error de sintaxis en línea: " + s.left + ", caracter: " + s.right);
+}
+
 
     public Symbol getS(){
         return this.s;

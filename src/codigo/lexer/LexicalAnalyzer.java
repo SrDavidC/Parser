@@ -12,13 +12,16 @@ public class LexicalAnalyzer {
 
     public LexicalAnalyzer(Lexer lexer) throws IOException {
         this.lexer = lexer;
-        loadAllTokens();  // Opción 1: Pre-cargar todos los tokens de una vez
+        loadAllTokens();
     }
 
-    // Opción 1: Pre-cargar todos los tokens de una vez
 private void loadAllTokens() throws IOException {
-    TokenType tokenType;
-    while ((tokenType = lexer.yylex()) != null) {
+    Token token;
+    while((token = lexer.yylex()) != null) {
+        tokens.add(token);
+    }
+    /*
+    while ((tokenType = lexer.yylex().getType()) != null) {
         // Extrae el lexema actual
         String lexeme = lexer.yytext();
         // Crea un nuevo objeto Token con el tipo y el lexema
@@ -26,6 +29,7 @@ private void loadAllTokens() throws IOException {
         // Agrega el token a la lista
         tokens.add(token);
     }
+*/
 }
     public Token nextToken() {
         if (currentPosition < tokens.size()) {

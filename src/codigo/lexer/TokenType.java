@@ -60,6 +60,7 @@ public enum TokenType  {
     USE_VARIABLE,
     BREAK_STATEMENT,
     CONTINUE_STATEMENT,
+    INVALID_TOKEN
 }
 
 

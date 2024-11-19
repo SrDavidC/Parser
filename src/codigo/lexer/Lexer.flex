@@ -1,95 +1,85 @@
-package codigo;
-import static codigo.Tokens.*;
+package codigo.lexer;
+import static codigo.lexer.TokenType.*;
 %%
+
 %class Lexer
-%type Tokens
+%type Token
+%line
+%unicode
 L=[a-zA-Z_]+
 D=[0-9]+
-espacio=[ ,\t,\r]+
+espacio=[ ,\t,\r,\n]+
 %{
     public String lexeme;
+    public int line;
 %}
+
+
 %%
+
+/* Reglas de tokens */
 /* Espacios en blanco */
-{espacio} {/* Ignore */}
+{espacio} { /* Ignore */ }
 
 /* Comentarios de línea */
-"//"([^\n])* {/* Ignore */}
+"//"([^\n])* { /* Ignore */ }
 
 /* Comentarios de bloque */
 "/*"([^*]|"*"+[^/*])*"*"+"/" { /* Ignore */ }
 
 /* Comentario sin terminar */
-"/*" { /* Agregar manejo de error para comentario sin terminar */ return ERROR; }
+"/*" { /* Agregar manejo de error para comentario sin terminar */ return new Token(INVALID_TOKEN, "Unclosed comment", yyline); }
 
 /* Salto de línea */
-( "\n" ) {return Linea;}
+"\n" { return new Token(Linea, "\\n", yyline); }
 
 /* Comillas */
-( "\"" ) {lexeme=yytext(); return Comillas;}
+"\"" { lexeme = yytext(); return new Token(Comillas, lexeme, yyline); }
 
 /* Tipos de datos */
-( byte | int | char | long | float | double ) {lexeme=yytext(); return T_dato;}
-( String ) {lexeme=yytext(); return Cadena;}
+(byte | int | char | long | float | double) { lexeme = yytext(); return new Token(T_dato, lexeme, yyline); }
+(String) { lexeme = yytext(); return new Token(Cadena, lexeme, yyline); }
 
 /* Palabras reservadas */
-( if ) {lexeme=yytext(); return If;}
-( else ) {lexeme=yytext(); return Else;}
-( do ) {lexeme=yytext(); return Do;}
-( while ) {lexeme=yytext(); return While;}
-( for ) {lexeme=yytext(); return For;}
-( main ) {lexeme=yytext(); return Main;}
-(return) { lexeme = yytext(); return Return; }
-
-
-/* Palabras reservadas adicionales */
-(  const | unsigned | auto | break | case | continue | default | enum | extern | goto | register | short | signed | sizeof | static | struct | switch | typedef | union | void | volatile ) { lexeme = yytext(); return Reservada; }
+(if) { lexeme = yytext(); return new Token(If, lexeme, yyline); }
+(else) { lexeme = yytext(); return new Token(Else, lexeme, yyline); }
+(do) { lexeme = yytext(); return new Token(Do, lexeme, yyline); }
+(while) { lexeme = yytext(); return new Token(While, lexeme, yyline); }
+(for) { lexeme = yytext(); return new Token(For, lexeme, yyline); }
+(main) { lexeme = yytext(); return new Token(Main, lexeme, yyline); }
+(return) { lexeme = yytext(); return new Token(Return, lexeme, yyline); }
 
 /* Operadores */
-( "=" ) {lexeme=yytext(); return Igual;}
-( "+" ) {lexeme=yytext(); return Suma;}
-( "-" ) {lexeme=yytext(); return Resta;}
-( "*" ) {lexeme=yytext(); return Multiplicacion;}
-( "/" ) {lexeme=yytext(); return Division;}
-( "++" | "--" ) {lexeme = yytext(); return Op_incremento;}
+("=") { lexeme = yytext(); return new Token(Igual, lexeme, yyline); }
+("+" | "-") { lexeme = yytext(); return new Token(Suma, lexeme, yyline); }
+("*" | "/") { lexeme = yytext(); return new Token(Multiplicacion, lexeme, yyline); }
+("++" | "--") { lexeme = yytext(); return new Token(Op_incremento, lexeme, yyline); }
 
 /* Operadores Lógicos */
-( "&&" | "||" | "!" ) {lexeme=yytext(); return Op_logico;}
+("&&" | "||" | "!") { lexeme = yytext(); return new Token(Op_logico, lexeme, yyline); }
 
 /* Operadores Relacionales */
-( ">" | "<" | "==" | "!=" | ">=" | "<=" | "<<" | ">>" ) {lexeme = yytext(); return Op_relacional;}
+(">" | "<" | "==" | "!=" | ">=" | "<=") { lexeme = yytext(); return new Token(Op_relacional, lexeme, yyline); }
 
 /* Operadores de Atribución */
-( "+=" | "-="  | "*=" | "/=" | "%=" ) {lexeme = yytext(); return Op_atribucion;}
-
-/* Operadores Binarios */
-( "&" | "|" | "^" | "~" ) { lexeme = yytext(); return Op_binario; }
-
-/* Operadores Booleanos */
-(true | false) {lexeme = yytext(); return Op_booleano;}
+("+=" | "-=" | "*=" | "/=" | "%=") { lexeme = yytext(); return new Token(Op_atribucion, lexeme, yyline); }
 
 /* Paréntesis, Llaves y Corchetes */
-( "(" ) {lexeme=yytext(); return Parentesis_a;}
-( ")" ) {lexeme=yytext(); return Parentesis_c;}
-( "{" ) {lexeme=yytext(); return Llave_a;}
-( "}" ) {lexeme=yytext(); return Llave_c;}
-( "[" ) {lexeme = yytext(); return Corchete_a;}
-( "]" ) {lexeme = yytext(); return Corchete_c;}
+("(") { lexeme = yytext(); return new Token(Parentesis_a, lexeme, yyline); }
+(")") { lexeme = yytext(); return new Token(Parentesis_c, lexeme, yyline); }
+("{" ) { lexeme = yytext(); return new Token(Llave_a, lexeme, yyline); }
+("}") { lexeme = yytext(); return new Token(Llave_c, lexeme, yyline); }
+("[" ) { lexeme = yytext(); return new Token(Corchete_a, lexeme, yyline); }
+("]") { lexeme = yytext(); return new Token(Corchete_c, lexeme, yyline); }
 
-/* Dos Puntos */
-( ":" ) { lexeme = yytext(); return Dos_puntos; }
-
-/* Punto y coma */
-( ";" ) {lexeme=yytext(); return P_coma;}
+/* Identificadores */
+{L}({L}|{D})* { lexeme = yytext(); return new Token(Identificador, lexeme, yyline); }
 
 /* Números */
-("0x"[0-9a-fA-F]+) { lexeme = yytext(); return Numero_hex; }
-("0"[0-7]+) { lexeme = yytext(); return Numero_oct; }
-({D}+"."{D}+[eE][-+]?{D}+) { lexeme = yytext(); return Numero_cientifico; }
-("(-"{D}+")")|{D}+ {lexeme=yytext(); return Numero;}
-
-/* Identificador */
-{L}({L}|{D})* {lexeme=yytext(); return Identificador;}
+("0x"[0-9a-fA-F]+) { lexeme = yytext(); return new Token(Numero_hex, lexeme, yyline); }
+("0"[0-7]+) { lexeme = yytext(); return new Token(Numero_oct, lexeme, yyline); }
+({D}+"."{D}+[eE][-+]?{D}+) { lexeme = yytext(); return new Token(Numero_cientifico, lexeme, yyline); }
+({D}+ ) { lexeme = yytext(); return new Token(Numero, lexeme, yyline); }
 
 /* Error de análisis */
-. {return ERROR;}
+. { return new Token(INVALID_TOKEN, yytext(), yyline); }

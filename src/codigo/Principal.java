@@ -17,17 +17,17 @@ import java.nio.file.Paths;
  */
 public class Principal {
     public static void main(String[] args) throws Exception {
-        String ruta1 = "C:/AnalizadorLexicoNetBeans/AnalizadorLexico/src/codigo/Lexer.flex";
-        String ruta2 = "C:/AnalizadorLexicoNetBeans/AnalizadorLexico/src/codigo/LexerCup.flex";
-        String[] rutaS = {"-parser", "Sintax", "C:/AnalizadorLexicoNetBeans/AnalizadorLexico/src/codigo/Sintax.cup"};
+        String ruta1 = "D:/Downloads/Parser (1)/Parser/AnalizadorLexicoNetBeans/AnalizadorLexico/src/codigo/lexer/Lexer.flex";
+        String ruta2 = "D:/Downloads/Parser (1)/Parser/AnalizadorLexicoNetBeans/AnalizadorLexico/src/codigo/lexer/LexerCup.flex";
+        String[] rutaS = {"-parser", "Sintax", "D:/Downloads/Parser (1)/Parser/AnalizadorLexicoNetBeans/AnalizadorLexico/src/codigo/Sintax/Sintax.cup"};
         generar(ruta1, ruta2, rutaS);
     }
     public static void generar(String ruta1, String ruta2, String[] rutaS) throws IOException, Exception{
         File archivo;
         archivo = new File(ruta1);
         JFlex.Main.generate(archivo);
-        archivo = new File(ruta2);
-        JFlex.Main.generate(archivo);
+        //archivo = new File(ruta2);
+        //JFlex.Main.generate(archivo);
         java_cup.Main.main(rutaS);
         
         Path rutaSym = Paths.get("C:/AnalizadorLexicoNetBeans/AnalizadorLexico/src/codigo/sym.java");
