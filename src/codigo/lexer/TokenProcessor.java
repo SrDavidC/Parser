@@ -1,4 +1,4 @@
-package codigo;
+package codigo.lexer;
 
 
 import java.util.List;

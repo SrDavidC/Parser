@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package codigo;
+package codigo.lexer;
 
 /**
  *
@@ -50,5 +50,16 @@ public enum TokenType  {
     Reservada,
     Op_binario,
     Const,
-    Return
+    Return,
+    IDENTIFIER,
+    NUMBER,
+    STRING,
+    OPERATOR,
+    KEYWORD,
+    VARIABLE_DECLARATION,
+    USE_VARIABLE,
+    BREAK_STATEMENT,
+    CONTINUE_STATEMENT,
 }
+
+

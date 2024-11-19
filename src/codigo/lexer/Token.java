@@ -1,7 +1,7 @@
-package codigo;
+package codigo.lexer;
 
 
-import codigo.TokenType;
+import codigo.lexer.TokenType;
 
 public class Token {
     private final TokenType type;

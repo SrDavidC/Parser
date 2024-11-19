@@ -4,7 +4,7 @@
 // Thu Nov 07 04:14:22 CST 2024
 //----------------------------------------------------
 
-package codigo;
+package codigo.Sintax;
 
 import java_cup.runtime.Symbol;
 

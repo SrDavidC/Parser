@@ -5,6 +5,14 @@
  */
 package codigo;
 
+import codigo.Semantic.SemanticAnalyzer;
+import codigo.Semantic.SemanticError;
+import codigo.lexer.Token;
+import codigo.lexer.TokenProcessor;
+import codigo.Sintax.Sintax;
+import codigo.lexer.LexicalAnalyzer;
+import codigo.lexer.Lexer;
+import codigo.lexer.TokenType;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -73,6 +81,11 @@ private void analizarLexico() throws IOException {
         txtAnalizarSin = new javax.swing.JTextArea();
         btnAnalizarSin = new javax.swing.JButton();
         btnLimpiarSin = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        txtAnalizarSem = new javax.swing.JTextArea();
+        btnAnalizarSemantico = new javax.swing.JButton();
+        btnLimpiarSemantico = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -139,7 +152,7 @@ private void analizarLexico() throws IOException {
                     .addComponent(btnAnalizarLex)
                     .addComponent(btnLimpiarLex))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                     .addGap(0, 50, Short.MAX_VALUE)
@@ -194,20 +207,74 @@ private void analizarLexico() throws IOException {
                 .addContainerGap())
         );
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Analizador Semantico", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
+
+        txtAnalizarSem.setEditable(false);
+        txtAnalizarSem.setColumns(20);
+        txtAnalizarSem.setRows(5);
+        jScrollPane5.setViewportView(txtAnalizarSem);
+
+        btnAnalizarSemantico.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnAnalizarSemantico.setText("Analizar");
+        btnAnalizarSemantico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnalizarSemanticoActionPerformed(evt);
+            }
+        });
+
+        btnLimpiarSemantico.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnLimpiarSemantico.setText("Limpiar");
+        btnLimpiarSemantico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarSemanticoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(btnAnalizarSemantico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLimpiarSemantico))))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAnalizarSemantico)
+                    .addComponent(btnLimpiarSemantico))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel3.getAccessibleContext().setAccessibleName("Analizador Semantico");
+        jPanel3.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -247,11 +314,11 @@ private void analizarLexico() throws IOException {
     }//GEN-LAST:event_btnAnalizarLexActionPerformed
 
     private void btnAnalizarSinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizarSinActionPerformed
-       String ST = txtResultado.getText();
+        String ST = txtResultado.getText();
         List<String> errores = new ArrayList<>();
 
         // Instanciar el parser (Sintax) con el lexer
-        Sintax s = new Sintax(new codigo.LexerCup(new StringReader(ST)));
+        Sintax s = new Sintax(new codigo.lexer.LexerCup(new StringReader(ST)));
 
         // Variable para controlar el ciclo de análisis
         int inicioAnalisis = 0;
@@ -263,7 +330,7 @@ private void analizarLexico() throws IOException {
             try {
                 // Obtener el texto a analizar, comenzando desde el índice actual
                 String textoAnalizar = ST.substring(inicioAnalisis);
-                s = new Sintax(new codigo.LexerCup(new StringReader(textoAnalizar)));
+                s = new Sintax(new codigo.lexer.LexerCup(new StringReader(textoAnalizar)));
 
                 // Intentar hacer el parseo del texto
                 s.parse();
@@ -320,6 +387,71 @@ private void analizarLexico() throws IOException {
         txtAnalizarSin.setForeground(Color.red);
         }
     }//GEN-LAST:event_btnAnalizarSinActionPerformed
+
+    private void btnAnalizarSemanticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizarSemanticoActionPerformed
+        try {                                                     
+            String ST = txtResultado.getText();  // Obtener el texto de entrada del JTextArea
+            List<SemanticError> erroresSemanticos = new ArrayList<>();  // Lista para recolectar errores semánticos
+            
+            // Crear el lexer y parser
+            Lexer lexer = new Lexer(new StringReader(ST));
+            LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer(lexer);
+            Sintax parser = new Sintax(new codigo.lexer.LexerCup(new StringReader(ST)));
+            
+            // Crear el analizador semántico y la tabla de símbolos
+            SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
+            
+            try {
+                // Ejecutar el análisis sintáctico y semántico
+                parser.parse();
+                
+                // Realizar el análisis léxico y agregar tokens a la tabla de símbolos
+                Token token;
+                while ((token = lexicalAnalyzer.nextToken()) != null) {
+                    if (token.getType() == TokenType.VARIABLE_DECLARATION) {
+                        semanticAnalyzer.declareVariable(token.getLexeme(), "int", token.getLine());
+                    } else if (token.getType() == TokenType.USE_VARIABLE) {
+                        semanticAnalyzer.checkVariableDefined(token.getLexeme(), token.getLine());
+                    } else if (token.getType() == TokenType.BREAK_STATEMENT) {
+                        semanticAnalyzer.checkBreakUsage(token.getLine());
+                    } else if (token.getType() == TokenType.CONTINUE_STATEMENT) {
+                        semanticAnalyzer.checkContinueUsage(token.getLine());
+                    }
+                }
+                
+                // Ejecutar optimizaciones
+                semanticAnalyzer.checkConstantFolding(null, 0);  // Implementación de ejemplo
+                semanticAnalyzer.checkConstantPropagation();
+                
+                // Obtener errores semánticos y agregarlos a la lista
+                erroresSemanticos.addAll(semanticAnalyzer.getErrors());
+                
+                // Mostrar los errores semánticos en el JTextField
+                if (erroresSemanticos.isEmpty()) {
+                    txtAnalizarSem.setText("Análisis semántico realizado correctamente. No se encontraron errores.");
+                    txtAnalizarSem.setForeground(new Color(25, 111, 61));
+                } else {
+                    StringBuilder sb = new StringBuilder();
+                    for (SemanticError errorMsg : erroresSemanticos) {
+                        sb.append(errorMsg.toString()).append("\n");
+                    }
+                    txtAnalizarSem.setText(sb.toString());
+                    txtAnalizarSem.setForeground(Color.red);
+                }
+
+            } catch (Exception ex) {
+                Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                txtAnalizarSem.setText("Error en el análisis semántico: " + ex.getMessage());
+                txtAnalizarSem.setForeground(Color.red);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAnalizarSemanticoActionPerformed
+
+    private void btnLimpiarSemanticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarSemanticoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLimpiarSemanticoActionPerformed
     
     /**
      * @param args the command line arguments
@@ -358,17 +490,27 @@ private void analizarLexico() throws IOException {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnalizarLex;
+    private javax.swing.JButton btnAnalizarSemantico;
     private javax.swing.JButton btnAnalizarSin;
+    private javax.swing.JButton btnAnalizarSin2;
     private javax.swing.JButton btnArchivo;
     private javax.swing.JButton btnLimpiarLex;
+    private javax.swing.JButton btnLimpiarSemantico;
     private javax.swing.JButton btnLimpiarSin;
+    private javax.swing.JButton btnLimpiarSin1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextArea txtAnalizarLex;
+    private javax.swing.JTextArea txtAnalizarSem;
     private javax.swing.JTextArea txtAnalizarSin;
+    private javax.swing.JTextArea txtAnalizarSin1;
     private javax.swing.JTextArea txtResultado;
     // End of variables declaration//GEN-END:variables
 }

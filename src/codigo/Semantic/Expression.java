@@ -8,15 +8,15 @@ package codigo.Semantic;
  *
  * @author XPC_DC
  */
-public class SemanticException extends Exception {
-    private final int line;
+public class Expression {
 
-    public SemanticException(String message, int line) {
-        super(message);
-        this.line = line;
+    public boolean isConstantExpression() {
+        return false;
+    }
+    public int evaluate() {
+        return 0;
     }
 
-    public int getLine() {
-        return line;
+    public void replaceVariableWithConstant(String variableName, int constantValue) {
     }
 }
